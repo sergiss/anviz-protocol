@@ -67,7 +67,7 @@ device.getRecordInformation((info)=> {
 
 device.getDeviceInfo1((info)=> {
     info.volume = 0;
-    info.language = 4; // 4 spanish
+    // info.language = 4; // 4 spanish
     device.setDeviceInfo1(info);
 });
 
