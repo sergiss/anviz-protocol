@@ -13,7 +13,7 @@ Communication protocol with Anviz devices, implemented with javascript.
   <li>Get/Set Date Time</li>
   <li>Get Record Information</li>
   <li>Get Records</li>
-  <li>CLEAR_RECORDS</li>
+  <li>Clear Records</li>
   <li>Get/Set User Info</li>
   <li>Get/Set FP Template</li>
   <li>Open Lock</li>
@@ -45,7 +45,7 @@ Communication protocol with Anviz devices, implemented with javascript.
 
     }
 
-    device.connect();
+    device.connect(); // Open connection
 
     device.getSerialNumber((serialNumber)=> {
         console.log("Serial: " + serialNumber);
@@ -79,4 +79,10 @@ Communication protocol with Anviz devices, implemented with javascript.
         });
         
     });
+
+    ...
+
+    device.disconnect(); // Close connection
 ```
+
+www.sergiosoriano.com
