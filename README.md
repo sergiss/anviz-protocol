@@ -1,6 +1,8 @@
 # Anviz-protocol
 
-Communication protocol with Anviz devices, implemented with javascript.
+Javascript library to communicate with Anviz devices.
+
+Tested with FacePass 7
 
 ## Features:
 
