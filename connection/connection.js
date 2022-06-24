@@ -68,12 +68,16 @@ class Connection {
         socket.on('close', ()=> {
             if(this.isConnected()) {
                 this.disconnect();
-                this.listener.onConnectionLost(new Error("Connection closed"));
+                this.listener.onConnectionLost();
             }
         });
 
         socket.on("data", (data)=> {
-            this.buffer = this.handleData(Buffer.concat([this.buffer, data]));
+            try {
+                this.buffer = this.handleData(Buffer.concat([this.buffer, data]));
+            } catch (e) { // Unhandled exception
+                console.log(e);
+            }
         });
 
         socket.connect({ port: this.port, host: this.host });
@@ -116,8 +120,11 @@ class Connection {
             message.command = data[5] - 0x80;
             message.returnValue = data[6];
             message.data = data.slice(9, n);
-    
-            if((message.command & 0xFF) == 0x5F) { // RealTime mode
+
+            if((message.command & 0xFF) == 0x13) { // it only happens when the device starts up
+                // Message data:
+                // 05 00 01 00 00 00 00 00 2a 47 53 c4 00 05 00 00
+            } else if((message.command & 0xFF) == 0x5F) { // RealTime mode
                 const record = Record.valueOf(message.data, 0);
                 record.deviceCode = message.deviceCode;
                 this.listener.onRecord(record);
